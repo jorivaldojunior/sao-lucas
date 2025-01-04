@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paróquia de São Lucas - Página Inicial</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* Estilo para o vídeo de fundo */
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Garante que o vídeo preencha 100% da tela */
+      z-index: -1;
+    }
+
+    /* Overlay escura */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Máscara preta com 70% de opacidade */
+      z-index: 0;
+    }
+
+    /* Seção principal com logo e botão */
+    .hero-section {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 100%;
+    }
+
+    /* Logo e título no topo com margem de 40px */
+    .hero-section .header {
+      color: white;
+      font-size: 2rem;
+      margin: 1rem 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centraliza o conteúdo horizontalmente */
+    }
+
+    .hero-section img {
+      max-width: 200px;
+      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+      transition: max-width 0.3s ease;
+    }
+
+    .hero-section h1 {
+      color: white;
+      font-size: 2rem;
+      margin-top: 1rem;
+    }
+
+    /* Botão centralizado no meio da tela */
+    .hero-section .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .hero-section .btn {
+      background-color: #28a745;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .hero-section .btn:hover {
+      background-color: #218838;
+    }
+
+    @media (min-width: 768px) {
+      .hero-section img {
+        max-width: 250px;
+      }
+
+      .hero-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-section .btn {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Vídeo de fundo -->
+  <video class="background-video" autoplay loop muted>
+    <source src="./image/omilia2.mp4" type="video/mp4" />
+    Seu navegador não suporta o elemento de vídeo.
+  </video>
+
+  <!-- Máscara para escurecer o vídeo -->
+  <div class="overlay"></div>
+
+  <!-- Conteúdo principal -->
+  <div class="hero-section">
+    <!-- Logo e título no topo -->
+    <div class="header">
+      <img src="./image/logo2.jpg" alt="Logo da Paróquia" />
+      <h1>Paróquia de São Lucas</h1>
+    </div>
+
+    <!-- Botão centralizado no meio da tela -->
+    <div class="btn-container">
+      <a href="index1.html" class="btn">Avançar</a>
+    </div>
+  </div>
+</body>
+</html>

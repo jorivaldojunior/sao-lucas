@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Serviço - Paróquia de São Lucas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-roboto">
+    <!-- Header -->
+    <header class="bg-blue-500 shadow-md fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto flex justify-between items-center py-4 px-4 md:px-8">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="./image/logo2.jpg" alt="Logo da Paróquia de São Lucas" class="h-12 w-12">
+                <h1 class="text-2xl font-bold ml-3">Paróquia de São Lucas</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="container mx-auto mt-20 md:mt-24 p-6">
+        <h2 class="text-3xl font-bold text-blue-500 mb-6 text-center">Agendar Serviço</h2>
+
+        <form id="servicoForm" class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="nome" class="block text-gray-700 font-bold mb-2">Nome:</label>
+                <input type="text" id="nome" class="w-full p-3 border rounded-lg" placeholder="Seu nome" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="telefone" class="block text-gray-700 font-bold mb-2">Telefone:</label>
+                <input type="tel" id="telefone" class="w-full p-3 border rounded-lg" placeholder="Seu telefone" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="endereco" class="block text-gray-700 font-bold mb-2">Endereço:</label>
+                <input type="text" id="endereco" class="w-full p-3 border rounded-lg" placeholder="Seu endereço" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="data" class="block text-gray-700 font-bold mb-2">Data Pretendida:</label>
+                <input type="date" id="data" class="w-full p-3 border rounded-lg" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="horario" class="block text-gray-700 font-bold mb-2">Horário Pretendido:</label>
+                <input type="time" id="horario" class="w-full p-3 border rounded-lg" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="servico" class="block text-gray-700 font-bold mb-2">Serviço:</label>
+                <select id="servico" class="w-full p-3 border rounded-lg" required>
+                    <option value="Missa de Sétimo Dia">Missa de Sétimo Dia</option>
+                    <option value="Batizado">Batizado</option>
+                    <option value="Casamento">Casamento</option>
+                </select>
+            </div>
+
+            <div class="flex justify-between mt-8">
+                <a href="servicos.html" class="bg-gray-500 text-white font-bold py-2 px-4 rounded-full hover:bg-gray-600">
+                    Voltar para Serviços
+                </a>
+                <button type="button" onclick="enviarWhatsApp()" class="bg-green-500 text-white font-bold py-2 px-4 rounded-full hover:bg-green-600">
+                    Enviar para WhatsApp
+                </button>
+            </div>
+        </form>
+    </main>
+
+   <!-- Footer -->
+   <footer class="bg-gray-800 text-white py-8 mt-16">
+    <div class="container mx-auto text-center px-4">
+        <p>&copy;Todos os direitos reservados a Paróquia de São Lucas - Olinda, PE.  </p>
+        <p><a href="https://www.linkedin.com/in/jorivaldo-azevedo?trk=contact-info" class="text-blue-400 hover:underline">Desenvolvedor - Jorivaldo Azevedo</a></p>
+    </div>
+</footer>
+</body>
+
+</html>
+
+
+    <script>
+        function enviarWhatsApp() {
+    const nome = document.getElementById('nome').value;
+    const telefone = document.getElementById('telefone').value;
+    const endereco = document.getElementById('endereco').value;
+    const data = document.getElementById('data').value;
+    const horario = document.getElementById('horario').value;
+    const servico = document.getElementById('servico').value;
+
+    const mensagem = `Olá, gostaria de agendar um serviço.\n\n` +
+        `Nome: ${nome}\n` +
+        `Telefone: ${telefone}\n` +
+        `Endereço: ${endereco}\n` +
+        `Serviço: ${servico}\n` +
+        `Data Pretendida: ${data}\n` +
+        `Horário Pretendido: ${horario}\n\n` +
+        `Por favor, poderia me informar as condições e datas disponíveis para agendamento?`;
+
+    const url = `https://api.whatsapp.com/send?phone=+5581982114103&text=${encodeURIComponent(mensagem)}`;
+
+    window.open(url, '_blank');
+}
+
+
+    </script>
+</body>
+
+</html>

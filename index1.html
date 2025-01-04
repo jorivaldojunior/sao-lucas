@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paróquia de São Lucas - Olinda</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <style>
+      .hero-section {
+        padding-top: calc(4rem + 1vh);
+        background-image: url("./image/banner2.png");
+        background-size: cover;
+        background-position: center;
+        height: 55vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .hero-section .hero-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      @media (min-width: 768px) {
+        .hero-section {
+          padding-top: calc(5rem + 1vh);
+        }
+      }
+
+      @media (max-width: 767px) {
+        .hero-section {
+          background-image: url("./image/lucas.jpg");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        @media (max-width: 400px) {
+          .hero-section {
+            height: 50vh;
+            padding-top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+
+          .hero-section .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+          }
+
+          .hero-section .hero-content h1 {
+            font-size: 1.2rem;
+            line-height: 1.4;
+          }
+        }
+
+        .hero-section::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+        }
+
+        .hero-section .hero-content {
+          position: relative;
+          z-index: 2;
+          color: white;
+          text-align: center;
+          padding: 0 1rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        }
+
+        .hero-section .hero-content h1 {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-top: 0;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .hero-section {
+          padding-top: calc(1rem + 5vh);
+          height: 50vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .hero-section .hero-content h1 {
+          font-size: 1.2rem;
+        }
+      }
+
+      /* Ajuste do Menu Móvel */
+      #mobile-menu {
+        display: none; /* Ocultar o menu por padrão */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #003366; /* Fundo azul com opacidade */
+        z-index: 1000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem; /* Reduzir padding */
+      }
+
+      #mobile-menu.show {
+        transform: translateX(0);
+      }
+
+      #mobile-menu ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+
+      #mobile-menu li {
+        margin-bottom: 1rem; /* Reduzir margem inferior */
+      }
+
+      #mobile-menu a {
+        font-size: 1.2rem; /* Reduzir tamanho da fonte */
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      #mobile-menu a:hover {
+        color: #cbd5e1; /* Cor de hover mais clara */
+      }
+
+      #mobile-menu-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 2rem; /* Reduzir o tamanho do ícone */
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      #mobile-menu-close:hover {
+        transform: scale(1.1);
+      }
+
+      /* Submenu de Orações (desktop) */
+      .dropdown-content {
+        display: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .group:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100 text-gray-800 font-roboto">
+    <!-- Header -->
+    <header class="bg-blue-500 shadow-md fixed top-0 left-0 w-full z-50">
+      <div
+        class="container mx-auto flex justify-between items-center py-4 px-4 md:px-8"
+      >
+        <!-- Logo -->
+        <div class="flex items-center">
+          <img
+            src="./image/logo2.jpg"
+            alt="Logo da Paróquia de São Lucas"
+            class="h-12 w-12"
+          />
+          <h1 class="text-2xl text-white font-bold ml-3">Paróquia São Lucas</h1>
+        </div>
+
+        <!-- Menu Hambúrguer -->
+        <div class="md:hidden">
+          <button id="menu-toggle" class="focus:outline-none">
+            <i class="fi fi-rr-menu-burger text-white text-3xl"></i>
+          </button>
+        </div>
+
+        <!-- Menu Normal (Desktop) -->
+        <nav id="menu" class="hidden md:flex space-x-4 md:space-x-6">
+          <ul class="flex space-x-4 md:space-x-6">
+            <li>
+              <a href="./index.html" class="text-white hover:text-blue-600"
+                >Inicio</a
+              >
+            </li>
+            <li>
+              <a href="#sobre-nos" class="text-white hover:text-blue-600"
+                >Sobre</a
+              >
+            </li>
+            <li>
+              <a href="servicos.html" class="text-white hover:text-blue-600"
+                >Serviços</a
+              >
+            </li>
+            <li>
+              <a href="cronograma.html" class="text-white hover:text-blue-600"
+                >Eventos</a
+              >
+            </li>
+
+            <li>
+              <a href="./dizimo.html" class="text-white hover:text-blue-600"
+                >Dízimo</a
+              >
+            </li>
+
+            <li>
+              <a href="./doacao.html" class="text-white hover:text-blue-600"
+                >Doações</a
+              >
+            </li>
+
+            <li>
+              <a href="./liturgia.html" class="text-white hover:text-blue-600"
+                >Liturgia</a
+              >
+            </li>
+
+            <li>
+              <a href="./radio.html" class="text-white hover:text-blue-600"
+                >Rádio</a
+              >
+            </li>
+            <li class="relative group">
+              <a
+                href="#"
+                class="text-white hover:text-blue-600 flex items-center"
+              >
+                Orações
+                <i class="fi fi-rr-angle-small-down ml-1"></i>
+              </a>
+              <ul
+                class="dropdown-content absolute bg-white text-gray-800 mt-2 rounded shadow-lg group-hover:block"
+              >
+                <li>
+                  <a
+                    href="./terco-nossa-senhora.html"
+                    class="block px-4 py-2 hover:bg-gray-200"
+                    >Rosário de Nossa Senhora</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="./terco-da-misericordia.html"
+                    class="block px-4 py-2 hover:bg-gray-200"
+                    >Terço da Misericórdia</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="./hino-sao-lucas.html"
+                    class="block px-4 py-2 hover:bg-gray-200"
+                    >Hino de São Lucas</a
+                  >
+                </li>
+
+                <li>
+                  <a
+                    href="./armadura.html"
+                    class="block px-4 py-2 hover:bg-gray-200"
+                    >Oração pedindo armadura de Deus</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="./patrício.html"
+                    class="block px-4 py-2 hover:bg-gray-200"
+                    >Oração São Patricio</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <!-- Ícones de Mídia Social (Desktop) -->
+            <li>
+              <a
+                href="https://www.instagram.com/paroquiaslucas"
+                target="_blank"
+                class="text-white hover:text-green-600 transition duration-200"
+                ><i class="fi fi-brands-instagram text-2xl"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://api.whatsapp.com/message/PLHKYHZB7ZEMG1?autoload=1&app_absent=0"
+                target="_blank"
+                class="text-white hover:text-green-600 transition duration-200"
+                ><i class="fi fi-brands-whatsapp text-2xl"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.facebook.com/freidennys.pimentel"
+                target="_blank"
+                class="text-white hover:text-green-600 transition duration-200"
+                ><i class="fi fi-brands-facebook text-2xl"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.youtube.com/channel/UCbEXDte3AfHvi2hEaNH9ulA"
+                target="_blank"
+                class="text-white hover:text-green-600 transition duration-200"
+                ><i class="fi fi-brands-youtube text-2xl"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+   <!-- Mobile Menu -->
+<nav id="mobile-menu">
+  <button id="mobile-menu-close">
+    <i class="fi fi-rr-cross"></i>
+  </button>
+  <ul class="flex flex-col items-start pl-4">
+    <li><a href="./index.html" class="menu-item">01- Página Inicial</a></li>
+    <li><a href="#sobre-nos" class="menu-item">02- Sobre - Nós</a></li>
+    <li><a href="servicos.html">03- Nossos - Serviços</a></li>
+    <li><a href="cronograma.html">04- Nossos - Eventos</a></li>
+    <li><a href="./dizimo.html">05- Seja Dizimista</a></li>
+    <li><a href="./doacao.html">06- Faça sua Doação</a></li>
+    <li><a href="./liturgia.html">07- Liturgia Diária</a></li>
+    <li><a href="./hino-sao-lucas.html">08- Hino de São Lucas</a></li>
+    <li><a href="./terco-da-misericordia.html">09- Terço da Misericórdia</a></li>
+    <li><a href="./terco-nossa-senhora.html">10- Rosário de Nossa Senhora</a></li>
+    <li><a href="./radio.html">11- Rádio São Lucas</a></li>
+    <li><a href="./armadura.html">12- Pedindo Armadura de Deus</a></li>
+    <li><a href="./patrício.html">13- Oração São Patrício</a></li>
+
+    <!-- Ícones de Mídia Social (Mobile) -->
+    <li class="mt-4 w-full">
+      <div class="flex justify-center space-x-4">
+        <a href="https://www.instagram.com/paroquiaslucas" target="_blank"><i class="fi fi-brands-instagram text-2xl"></i></a>
+        <a href="https://api.whatsapp.com/message/PLHKYHZB7ZEMG1?autoload=1&app_absent=0" target="_blank"><i class="fi fi-brands-whatsapp text-2xl"></i></a>
+        <a href="https://www.facebook.com/freidennys.pimentel" target="_blank"><i class="fi fi-brands-facebook text-2xl"></i></a>
+        <a href="https://www.youtube.com/channel/UCbEXDte3AfHvi2hEaNH9ulA" target="_blank"><i class="fi fi-brands-youtube text-2xl"></i></a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <!-- Main Section -->
+    <main class="container mx-auto mt-20 md:mt-24">
+      <!-- Hero Section -->
+      <section
+        id="home"
+        class="hero-section relative bg-blue-500 text-white py-25 md:py-32 text-center"
+      >
+        <div class="hero-content">
+          <h1>Olá, seja bem-vindo ao aplicativo!</h1>
+        </div>
+      </section>
+
+      <!-- Botão Saiba Mais -->
+      <div class="flex justify-center mt-4">
+        <a
+          href="https://api.whatsapp.com/send?phone=+5581982114103&text=Olá, sou novo por aqui alguém poderia me ajudar pois gostaria de falar com alguém da direção e preciso de mais informações sobre a paróquia"
+          target="_blank"
+          class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-400"
+          >Secretaria Paroquial</a
+        >
+      </div>
+
+      <!-- Sobre Nós Section -->
+      <section id="sobre-nos" class="mt-16">
+        <div class="flex flex-col md:flex-row items-center">
+          <!-- Coluna da Paróquia (Reduzida para 40%) -->
+          <div class="md:w-2/5 p-6">
+            <img
+              src="./image/igreja2.jpg"
+              alt="Imagem da igreja"
+              class="rounded-lg shadow-lg w-full"
+            />
+          </div>
+          <div class="md:w-2/5 p-6">
+            <h3 class="text-3xl font-bold text-blue-500 mb-4">
+              Sobre a Paróquia
+            </h3>
+            <p class="text-gray-700 mb-4">
+              A Paróquia de São Lucas é um lugar de encontro com Deus e com a
+              comunidade. Aqui, celebramos a fé, a esperança e o amor através da
+              Eucaristia, da oração e do serviço ao próximo.
+            </p>
+            <a
+              href="historia.html"
+              class="text-blue-500 font-semibold hover:underline"
+              >Leia mais sobre nossa história...</a
+            >
+          </div>
+
+          <!-- Coluna do Mapa (60%) -->
+          <div class="md:w-3/5 p-6">
+            <h3 class="text-3xl font-bold text-blue-500 mb-4">
+              Localização da Paróquia
+            </h3>
+            <div class="w-full h-64 rounded-lg shadow-lg">
+              <!-- Substitua o src abaixo pelo link do mapa da sua localização -->
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.0347803580307!2d-34.867135526191085!3d-7.995345279746426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ab17fcfdeb7b2b%3A0x3daea13e4e418c5b!2sPar%C3%B3quia%20de%20São%20Lucas!5e0!3m2!1spt-BR!2sbr!4v1724016031788!5m2!1spt-BR!2sbr"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                style="border: 0"
+                allowfullscreen=""
+                aria-hidden="false"
+                tabindex="0"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Outras Seções -->
+      <section id="contato" class="mt-16">
+        <!-- Conteúdo da seção de Contato -->
+      </section>
+      <section id="cronograma" class="mt-16">
+        <!-- Conteúdo da seção de Cronograma -->
+      </section>
+      <section id="oracoes" class="mt-16">
+        <!-- Conteúdo da seção de Orações -->
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+      <div class="container mx-auto text-center px-4">
+        <p>
+          &copy;Todos os direitos reservados a Paróquia de São Lucas - Olinda,
+          PE.
+        </p>
+        <p>
+          <a
+            href="https://www.linkedin.com/in/jorivaldo-azevedo?trk=contact-info"
+            class="text-blue-400 hover:underline"
+            >Desenvolvedor - Jorivaldo Azevedo</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // JavaScript para alternar o menu
+      document
+        .getElementById("menu-toggle")
+        .addEventListener("click", function () {
+          document.getElementById("mobile-menu").classList.toggle("show");
+        });
+
+      document
+        .getElementById("mobile-menu-close")
+        .addEventListener("click", function () {
+          document.getElementById("mobile-menu").classList.remove("show");
+        });
+
+      // Fechar menu ao clicar em links específicos
+      document.querySelectorAll(".menu-item").forEach((item) => {
+        item.addEventListener("click", function () {
+          document.getElementById("mobile-menu").classList.remove("show");
+        });
+      });
+
+      // Fechar menu se clicar fora dele
+      document.addEventListener("click", function (event) {
+        const menu = document.getElementById("mobile-menu");
+        const toggle = document.getElementById("menu-toggle");
+
+        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+          menu.classList.remove("show");
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rádio São Lucas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #f3f4f6;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+    }
+
+    .controls button,
+    .volume input {
+      background-color: #32a852;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .controls button:hover,
+    .volume input:hover {
+      background-color: #45a049;
+    }
+
+    .content {
+      margin-top: 8rem; /* Espaço para o header fixo */
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    #progress {
+      width: 100%;
+      height: 5px;
+      background: #ddd;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0;
+      background-color: #4CAF50;
+      border-radius: 5px;
+    }
+
+    .volume {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .volume input {
+      width: 150px;
+    }
+
+    @media (max-width: 600px) {
+      .controls button,
+      .volume input {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .volume input {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-blue-500 shadow-md fixed top-0 left-0 w-full z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-4 md:px-8">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <img src="./image/logo2.jpg" alt="Logo da Paróquia de São Lucas" class="h-12 w-12">
+        <h1 class="text-2xl text-white font-bold ml-3">Paróquia de São Lucas</h1>
+      </div>
+    </div>
+  </header>
+
+  
+
+  <!-- Player de áudio -->
+  <div class="content">
+    <div id="audioPlayer"></div>
+
+    <h2 class="text-2xl text-blue-500 font-bold ml-3"> Rádio São Lucas - Tocamos pra você a frequência do amor...</h2>
+  <br>
+
+    <!-- Controles -->
+    <div class="controls mt-6 flex flex-wrap justify-center gap-4">
+      <button id="playButton">Play</button>
+      <button id="pauseButton" style="display: none;">Pause</button>
+      <button id="stopButton">Stop</button>
+      <button id="nextButton">Próxima Música</button>
+    </div>
+
+    <!-- Marcador de tempo -->
+    <div id="progress" class="mt-4">
+      <div id="progress-bar"></div>
+    </div>
+
+    <!-- Controle de volume -->
+    <div class="volume mt-4">
+      <label for="volumeControl" class="text-sm text-gray-700">Volume</label>
+      <input type="range" id="volumeControl" min="0" max="100" value="100" class="w-36">
+    </div>
+  </div>
+
+  <!-- Botão de Voltar -->
+  <div class="flex justify-center mt-8">
+    <a href="index1.html" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600">
+      Voltar para Página Inicial
+    </a>
+  </div>
+
+  <script>
+    // JavaScript permanece igual
+    let tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    let firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    let player;
+    let currentTrackIndex = 0;
+    const tracks = ['is8ORYUDG8s', 'kNEuFCrV_yc', 'adQsdpX685Q', '-ZJ3noUVRdM', '6o3PvW9Ig9g'];
+
+    const progressBar = document.getElementById("progress-bar");
+    const progressContainer = document.getElementById("progress");
+    const volumeControl = document.getElementById("volumeControl");
+
+    function onYouTubeIframeAPIReady() {
+      loadVideo(currentTrackIndex);
+    }
+
+    function loadVideo(trackIndex) {
+      const videoId = tracks[trackIndex];
+      player = new YT.Player('audioPlayer', {
+        height: '0',
+        width: '0',
+        videoId: videoId,
+        playerVars: {
+          'autoplay': 1,
+          'controls': 0,
+          'showinfo': 0,
+          'modestbranding': 1,
+          'fs': 0,
+          'loop': 1,
+          'mute': 0
+        },
+        events: {
+          'onStateChange': onPlayerStateChange,
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      setInterval(updateProgress, 1000);
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.PLAYING) {
+        document.getElementById("playButton").style.display = "none";
+        document.getElementById("pauseButton").style.display = "inline-block";
+      } else {
+        document.getElementById("playButton").style.display = "inline-block";
+        document.getElementById("pauseButton").style.display = "none";
+      }
+    }
+
+    function updateProgress() {
+      let currentTime = player.getCurrentTime();
+      let duration = player.getDuration();
+      let progress = (currentTime / duration) * 100;
+      progressBar.style.width = progress + "%";
+    }
+
+    document.getElementById("pauseButton").addEventListener("click", () => player.pauseVideo());
+    document.getElementById("playButton").addEventListener("click", () => player.playVideo());
+    document.getElementById("stopButton").addEventListener("click", () => player.stopVideo());
+    document.getElementById("nextButton").addEventListener("click", () => {
+      currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+      player.loadVideoById(tracks[currentTrackIndex]);
+    });
+
+    progressContainer.addEventListener("click", (event) => {
+      let clickPosition = event.offsetX;
+      let progressWidth = progressContainer.offsetWidth;
+      let newTime = (clickPosition / progressWidth) * player.getDuration();
+      player.seekTo(newTime);
+    });
+
+    volumeControl.addEventListener("input", (event) => {
+      let volume = event.target.value / 100;
+      player.setVolume(volume * 100);
+    });
+  </script>
+</body>
+</html>

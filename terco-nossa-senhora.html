@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rosário de Nossa Senhora</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f4f6;
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .content-container {
+        border-radius: 0.5rem;      
+        padding: 2rem;
+        margin-top: 1rem;
+      }
+
+      .text-content {
+        line-height: 1.75;
+        text-align: left;
+        margin-top: 1rem;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+      }
+
+      .image-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      .image-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+      }
+
+      .title {
+        color: #1e3a8a;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body class="bg-green-600 text-gray-800 font-sans">
+    <div class="container mx-auto px-4 py-8">
+      <a
+        href="index1.html"
+        class="inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors mb-6"
+      >
+        &larr; Voltar
+      </a>
+      <div class="content-container">
+        <h1 class="title">Rosário de Nossa Senhora</h1>
+        <div class="image-container">
+          <img src="./image/terço1.jfif" alt="Nossa Senhora" />
+        </div>
+        <div class="text-content text-white">
+          <p><strong>Pelo sinal da santa cruz...</strong></p>
+          <p>
+            <strong>Oferecimento:</strong> Divino Jesus, eu vos ofereço este
+            terço (Rosário) que vou rezar, contemplando os mistérios de nossa
+            Redenção. Concedei-me, pela intercessão de Maria, vossa Mãe
+            Santíssima, a quem me dirijo, as graças necessárias para bem rezá-lo
+            para ganhar as indulgências desta santa devoção.
+          </p>
+          <p><strong>Creio em Deus pai...</strong></p>
+          <p><strong>1a. Conta:</strong> Pai Nosso</p>
+          <p><strong>2a. Conta:</strong> Ave-Maria</p>
+          <p><strong>3a. Conta:</strong> Ave-Maria</p>
+          <p><strong>4a. Conta:</strong> Ave-Maria</p>
+          <p><strong>5a. Conta:</strong> Glória</p>
+        </div>
+
+        <div id="misterios" class="text-content text-white">
+          <!-- Os mistérios serão inseridos aqui dinamicamente -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Definição dos mistérios para cada dia da semana
+      const misterios = {
+        gozosos: [
+          "No Primeiro Mistério Gozoso contemplamos a Anunciação do Anjo a Nossa Senhora.",
+          "No Segundo Mistério Gozoso contemplamos a Visitação de Nossa Senhora a sua prima Santa Isabel.",
+          "No Terceiro Mistério Gozoso contemplamos o Nascimento de Nosso Senhor Jesus Cristo em Belém.",
+          "No Quarto Mistério Gozoso contemplamos a Apresentação do Menino Jesus no Templo e a Purificação de Nossa Senhora.",
+          "No Quinto Mistério Gozoso contemplamos a perda e o encontro do Menino Jesus.",
+        ],
+        dolorosos: [
+          "No Primeiro Mistério Doloroso contemplamos a Agonia de Jesus no Horto das Oliveiras.",
+          "No Segundo Mistério Doloroso contemplamos a Flagelação de Jesus atado à coluna.",
+          "No Terceiro Mistério Doloroso contemplamos a Coroação de Espinhos de Nosso Senhor.",
+          "No Quarto Mistério Doloroso contemplamos o Caminho do Calvário carregando a Cruz.",
+          "No Quinto Mistério Doloroso contemplamos a Crucificação e Morte de Nosso Senhor.",
+        ],
+        gloriosos: [
+          "No Primeiro Mistério Glorioso contemplamos a Ressurreição de Jesus.",
+          "No Segundo Mistério Glorioso contemplamos a Ascensão de Jesus ao Céu.",
+          "No Terceiro Mistério Glorioso contemplamos a Vinda do Espírito Santo sobre os Apóstolos.",
+          "No Quarto Mistério Glorioso contemplamos a Assunção de Nossa Senhora ao Céu.",
+          "No Quinto Mistério Glorioso contemplamos a Coroação de Nossa Senhora como Rainha do Céu e da Terra.",
+        ],
+        luminosos: [
+          "No Primeiro Mistério Luminoso contemplamos o Batismo de Jesus no rio Jordão.",
+          "No Segundo Mistério Luminoso contemplamos o Milagre de Jesus nas Bodas de Caná.",
+          "No Terceiro Mistério Luminoso contemplamos o Anúncio do Reino de Deus.",
+          "No Quarto Mistério Luminoso contemplamos a Transfiguração de Jesus no Monte Tabor.",
+          "No Quinto Mistério Luminoso contemplamos a Instituição da Eucaristia.",
+        ],
+      };
+
+      // Mapeamento dos dias da semana para os mistérios
+      const diasDaSemana = {
+        0: "gloriosos", // Domingo
+        1: "gozosos", // Segunda
+        2: "dolorosos", // Terça
+        3: "gloriosos", // Quarta
+        4: "luminosos", // Quinta
+        5: "dolorosos", // Sexta
+        6: "gozosos", // Sábado
+      };
+
+      // Obtém o dia da semana atual
+      const diaAtual = new Date().getDay();
+
+      // Seleciona os mistérios correspondentes ao dia atual
+      const misterioDoDia = misterios[diasDaSemana[diaAtual]];
+
+      // Atualiza o conteúdo da div #misterios com os mistérios do dia
+      const misterioContainer = document.getElementById("misterios");
+      misterioDoDia.forEach((misterio, index) => {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>${
+          index + 1
+        }º Mistério:</strong> ${misterio}<br />1 Pai Nosso<br />10 Ave-Maria<br />Glória`;
+        misterioContainer.appendChild(p);
+      });
+
+      // Parágrafos fixos para serem adicionados após o quinto mistério
+      const paragrafosFinais = `
+      <p><strong>Infinitas graças vos damos</strong>, soberana Rainha, pelos benefícios que recebemos todos os dias de vossas mãos liberais, dignai-vos agora e para sempre tomar-nos debaixo de vosso poderoso amparo, e para mais vos alegrar vos saudamos com uma Salve-Rainha:</p>
+      <p><strong>Salve Rainha!</strong> Mãe de misericórdia, vida, doçura, esperança nossa, Salve! A vós bradamos os degredados filhos de Eva. A vós suspiramos, gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei, e depois deste desterro, mostrai-nos Jesus, bendito fruto do vosso ventre. Ó clemente, ó piedosa, ó doce, sempre Virgem Maria.</p>
+      <p><strong>Rogai por nós Santa Mãe de Deus.</strong> Para que sejamos dignos das promessas de Cristo. Amém!</p>
+    `;
+
+      // Adiciona os parágrafos finais ao container
+      misterioContainer.innerHTML += paragrafosFinais;
+    </script>
+  </body>
+</html>
